@@ -1,0 +1,62 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Client {
++read()
++send()
++close()
+}
+
+class EchoServerProtocol {
++connection_made()
++data_received()
+}
+
+class Product
+{
++description
++quantity
++cost
++name
++warehouse:dict
++print_about_products()
++print_information_about_product()
+}
+
+class Order {
++dict_of_orders:dict
++check_order()
++add_product_to_existing_order()
++pay_for_order()
++make_order()
+}
+
+class User {
++name
++password
++tables_of_users:dict
++add_new_user()
++entrance_of_user()
++change_password()
+}
+
+class asyncio.Protocol{
+}
+
+class AsyncioClient {
++run()
+}
+
+class Admin {
++add_product()
+}
+
+EchoServerProtocol <|-- asyncio.Protocol
+AsyncioClient ..> Client
+Admin ..> Client
+EchoServerProtocol ..> Order
+EchoServerProtocol ..> Product
+EchoServerProtocol ..> User
+AsyncioClient "1..*" -- "1" EchoServerProtocol
+Admin "1" -- "1" EchoServerProtocol
+@enduml
