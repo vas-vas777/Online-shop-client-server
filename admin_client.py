@@ -1,19 +1,24 @@
 from client import Client
 
 
-def run(host, port):
-    admin = Client(host, port, timeout=5)
-    number_of_choice = "1"
-    product_name = "шкаф"
-    cost_of_product = "10000"
-    quantity = "11"
-    description = "шкаф для одежды"
-    username = "admin"
-    password = "1234"
-    admin.send(str.encode(
-        str(number_of_choice + "," + product_name + "," + cost_of_product + "," + quantity
-            + "," + description + "," + username + "," + password)))
+class Admin:
+    def __init__(self, admin):
+        self.admin = admin
+
+    def add_product(self):
+        number_of_choice = "1"
+        product_name = input("Введите название товара: ")
+        cost_of_product = input("Введите стоимость товара: ")
+        quantity = input("Введите количество штук товара: ")
+        description = input("Введите описание товара: ")
+        username = input("Введите логин: ")
+        password = input("Введите пароль: ")
+        self.admin.send(str.encode(
+            str(number_of_choice + "," + product_name + "," + cost_of_product + "," + quantity
+                + "," + description + "," + username + "," + password)))
+        self.admin.close()
 
 
 if __name__ == "__main__":
-    run("127.0.0.1", 8888)
+    admin = Admin(Client("127.0.0.1", 8888, timeout=5))
+    admin.add_product()
